@@ -14,7 +14,7 @@ class ViewOrder extends React.Component {
             <div className="container">
                 <ol>
                     {this.props.order.map(salad => (
-                        <OrderItem salad={salad}/>
+                        <OrderItem key={salad.id} salad={salad}/>
                     ))}
                 </ol>
             </div>

@@ -87,7 +87,7 @@ class ComposeSalad extends React.Component {
           <select value={this.state.addedFoundation} onChange={this.handleFoundation} className="custom-select" required> 
             <option value="" disabled hidden>Välj en bas</option>
             {foundations.map(name => (
-              <SaladOption  
+              <SaladOption key={name}
                 name={name} 
                 price={inventory[name].price}  
               />  
@@ -97,7 +97,9 @@ class ComposeSalad extends React.Component {
           <h4>Välj protein</h4>
             
             {proteins.map(name => (
-              <SaladCheckbox handleChange={this.handleChange} 
+              <SaladCheckbox 
+              key={name}
+              handleChange={this.handleChange} 
               name={name} 
               price={inventory[name].price} 
               checked={addedComponents.find(v => v === name) || false}/>  
@@ -107,6 +109,7 @@ class ComposeSalad extends React.Component {
               
             {extras.map(name => (
               <SaladCheckbox 
+                key={name}
                 handleChange={this.handleChange} 
                 name={name} 
                 price={inventory[name].price} 
@@ -119,6 +122,7 @@ class ComposeSalad extends React.Component {
             <option value="" disabled hidden>Välj en dressing</option>
             {dressing.map(name => (
               <SaladOption 
+                key={name}
                 name={name} 
                 price={inventory[name].price} 
               />  

@@ -7,7 +7,7 @@ class SaladOption extends React.Component {
         let {name, price} = this.props;
         
         return (
-            <option value={name} key={name}>{name} +{price} kr</option>
+            <option value={name}>{name} +{price} kr</option>
 
         );
     }

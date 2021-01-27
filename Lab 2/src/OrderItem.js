@@ -12,9 +12,9 @@ class OrderItem extends React.Component {
         let {salad} = this.props;
         
         return (
-            <li key={salad["id"]} class="list-group-item d-flex justify-content-between align-items-center">
+            <li className="list-group-item d-flex justify-content-between align-items-center">
                 {salad.print()}
-                <span class="badge badge-primary badge-pill">{salad.price()}kr</span>
+                <span className="badge badge-primary badge-pill">{salad.price()}kr</span>
             </li>
             
 

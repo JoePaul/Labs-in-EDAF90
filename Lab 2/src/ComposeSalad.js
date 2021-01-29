@@ -4,30 +4,38 @@ import SaladOption from "./SaladOption";
 import $ from "jquery";
 import Salad from "./Salad";
 
+
 class ComposeSalad extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {addedComponents: [],
                   addedFoundation: "",
                   addedDressing: ""}
+
+    $(document).on('hidden.bs.modal', "#ComposeSaladModal", () => {
+      this.setState({addedComponents: [], addedFoundation: "", addedDressing:""});
+    });
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFoundation = this.handleFoundation.bind(this);
     this.handleDressing = this.handleDressing.bind(this);
+
   }
 
-
+  
   handleSubmit(event) {
     event.preventDefault();
     let {addedComponents, addedFoundation, addedDressing} = this.state;
-    $('#ComposeSaladModal').modal('hide');
     let salad = new Salad(this.props.idGenerator());
-    
     addedComponents.map(v => salad.addItem(v));
     salad.addItem(addedDressing);
     salad.addItem(addedFoundation)
     this.props.addOrder(salad);
-    this.setState({addedComponents: [], addedFoundation: "", addedDressing:""});
+
+    //Don't forget to add 'setState' to clear state of composed salad
+    $('#ComposeSaladModal').modal('hide');
+    
   }
 
   handleFoundation(event) {
@@ -36,7 +44,6 @@ class ComposeSalad extends React.Component {
   }
 
   handleDressing(event) {
-    
     let {value} = event.target;
     this.setState({addedDressing: value});
   }

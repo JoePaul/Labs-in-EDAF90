@@ -17,14 +17,25 @@ class App extends Component {
       idGenerator: Salad.getUniqueID()
     }
     this.addOrder = this.addOrder.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+  }
+
+ 
+
+  onRemove(id) {
+    if (window.confirm("Vill du verkligen ta bort den här salladen?")) {
+      let order = this.state.order.filter(a => a.id !== id);
+      this.setState({order}, () => console.log(this.state));
+    }
   }
 
   addOrder(salad) {
     let {order} = this.state;
-    
     order.push(salad);
     this.setState({order}, () => console.log(this.state.order));
   } 
+
+
 
   render() {
     
@@ -36,11 +47,11 @@ class App extends Component {
             Den bästa och grönaste digitala salladsbaren i Skåne
           </p>
           <hr className="my-4" />
-          <p>Beställ online och få den levererad till dig var i världen du än befinner dig!</p>
+          <p>Beställ online och få den levererad till dig var i världen du än befinner dig - online!</p>
         </div>
 
         <ComposeSaladModal inventory={inventory} idGenerator={this.state.idGenerator} addOrder={this.addOrder}/>
-        <ViewOrder order={this.state.order}/>
+        <ViewOrder order={this.state.order} onRemove={this.onRemove}/>
       </div>
     );
   }

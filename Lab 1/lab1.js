@@ -8,18 +8,18 @@ const dressing = Object.keys(inv.inventory).filter(item => inv.inventory[item]["
 
 class Salad {
     constructor() {
-        this.salad = {
-            foundation: {},
-            protein: [],
-            extra: [],
-            dressing: {}
-        }
+        
+        this.foundation = {};
+        this.protein = [];
+        this.extra = [];
+        this.dressing = {};
+        
     };
 
 
     addItem = (item) => {
         let itemObject = inv.inventory[item]; 
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (itemObject.foundation && foundation) {
             foundation[item] = itemObject;
         } else if (itemObject.protein) {
@@ -35,20 +35,20 @@ class Salad {
 
     removeItem = (item) => {
         
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (foundation[item]) {
             delete foundation[item];
         } else if (proteins.includes(item)) {
-            this.salad.protein = protein.filter(product => !product[item]);
+            this.protein = protein.filter(product => !product[item]);
         } else if (extras.includes(item)) {
-            this.salad.extra = extra.filter(product => !product[item]);
+            this.extra = extra.filter(product => !product[item]);
         } else if (dressing[item]) {
             delete dressing[item];
         }
     };
 
     price = () => {
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         let cost =  protein.concat(foundation, dressing, extra)
                     .map(v => Object.keys(v).map(a => v[a].price)).flat()
                     .reduce((sum, price) => sum + price);
@@ -76,7 +76,7 @@ console.log(myCesarSalad.price());
 class ExtraGreenSalad extends Salad {
 
     price = () => {
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         
         let cost =  protein.concat(foundation, dressing, extra)
                     .map(v => Object.keys(v).map(a => v[a].price * (v[a].foundation ? 1.3 : 0.5)))
@@ -105,20 +105,19 @@ class GourmetSalad {
     
 
     constructor() {
-        this.salad = {
-            foundation: {},
-            protein: [],
-            extra: [],
-            dressing: {}
-        }
         
-    };
+        this.foundation = {};
+        this.protein = [];
+        this.extra = [];
+        this.dressing = {};
+    
+};
 
    
     addItem = (item, size = 1) => {
         let itemObject = {...inv.inventory[item], size};
          
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (itemObject.foundation) {
             foundation[item] = itemObject;
         } else if (itemObject.protein) {
@@ -134,20 +133,20 @@ class GourmetSalad {
 
     removeItem = (item) => {
         
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (foundation[item]) {
             delete foundation[item];
         } else if (proteins.includes(item)) {
-            this.salad.protein = protein.filter(product => !product[item]);
+            this.protein = protein.filter(product => !product[item]);
         } else if (extras.includes(item)) {
-            this.salad.extra = extra.filter(product => !product[item]);
+            this.extra = extra.filter(product => !product[item]);
         } else if (dressing[item]) {
             delete dressing[item];
         }
     };
 
     price = () => {
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         let cost =  protein.concat(foundation, dressing, extra)
                     .map(v => Object.keys(v).map(a => v[a].price * v[a].size)).flat()
                     .reduce((sum, price) => sum + price);
@@ -169,4 +168,3 @@ mySalad.addItem("Tomat");
 mySalad.addItem("Krutonger");
 mySalad.addItem("Ceasardressing");
 
-console.log(mySalad.id);

@@ -13,12 +13,10 @@ class Salad {
 
     constructor(id) {
         this.id = id;
-        this.salad = {
-            foundation: {},
-            protein: [],
-            extra: [],
-            dressing: {}
-        }
+        this.foundation = {};
+        this.protein = [];
+        this.extra = [];
+        this.dressing = {};
 
     };
 
@@ -30,7 +28,7 @@ class Salad {
     addItem = (item, size = 1) => {
         let itemObject = {...inventory[item], size};
          
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (itemObject.foundation && foundation) {
             foundation[item] = itemObject;
         } else if (itemObject.protein) {
@@ -46,20 +44,20 @@ class Salad {
 
     removeItem = (item) => {
         
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         if (foundation[item]) {
             delete foundation[item];
         } else if (proteins.includes(item)) {
-            this.salad.protein = protein.filter(product => !product[item]);
+            this.protein = protein.filter(product => !product[item]);
         } else if (extras.includes(item)) {
-            this.salad.extra = extra.filter(product => !product[item]);
+            this.extra = extra.filter(product => !product[item]);
         } else if (dressing[item]) {
             delete dressing[item];
         }
     };
 
     price = () => {
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         let cost =  protein.concat(foundation, dressing, extra)
                     .map(v => Object.keys(v).map(a => v[a].price * v[a].size)).flat()
                     .reduce((sum, price) => sum + price);
@@ -67,7 +65,7 @@ class Salad {
     };
 
     print() {
-        let {foundation, protein, extra, dressing} = this.salad;
+        let {foundation, protein, extra, dressing} = this;
         return `${this.id}; 
         ${Object.keys(foundation)};    
         ${protein.map(v => Object.keys(v))};    

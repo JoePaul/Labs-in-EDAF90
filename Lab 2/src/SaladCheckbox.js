@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class SaladCheckbox extends React.Component {
     render() {
-        let {name, price, handleChange, checked} = this.props;
+        const {name, price, handleChange, checked} = this.props;
         
         return (
             <div className="form-check">

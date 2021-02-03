@@ -28,7 +28,7 @@ class Salad {
     addItem = (item, size = 1) => {
         let itemObject = {...inventory[item], size};
          
-        let {foundation, protein, extra, dressing} = this;
+        const {foundation, protein, extra, dressing} = this;
         if (itemObject.foundation && foundation) {
             foundation[item] = itemObject;
         } else if (itemObject.protein) {
@@ -44,7 +44,7 @@ class Salad {
 
     removeItem = (item) => {
         
-        let {foundation, protein, extra, dressing} = this;
+        const {foundation, protein, extra, dressing} = this;
         if (foundation[item]) {
             delete foundation[item];
         } else if (proteins.includes(item)) {
@@ -57,7 +57,7 @@ class Salad {
     };
 
     price = () => {
-        let {foundation, protein, extra, dressing} = this;
+        const {foundation, protein, extra, dressing} = this;
         let cost =  protein.concat(foundation, dressing, extra)
                     .map(v => Object.keys(v).map(a => v[a].price * v[a].size)).flat()
                     .reduce((sum, price) => sum + price);
@@ -65,7 +65,7 @@ class Salad {
     };
 
     print() {
-        let {foundation, protein, extra, dressing} = this;
+        const {foundation, protein, extra, dressing} = this;
         return `${this.id}; 
         ${Object.keys(foundation)};    
         ${protein.map(v => Object.keys(v))};    

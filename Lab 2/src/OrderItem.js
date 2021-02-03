@@ -10,7 +10,7 @@ class OrderItem extends React.Component {
     
 
     render() {
-        let {salad, onRemove} = this.props;
+        const {salad, onRemove} = this.props;
         
         return (
             <li className="list-group-item d-flex justify-content-between align-items-center">

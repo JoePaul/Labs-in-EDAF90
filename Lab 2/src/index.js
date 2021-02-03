@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   addOrder(salad) {
-    let {order} = this.state;
+    const {order} = this.state;
     order.push(salad);
     this.setState({order}, () => console.log(this.state.order));
   } 

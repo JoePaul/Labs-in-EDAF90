@@ -63,7 +63,7 @@ class ComposeSalad extends React.Component {
 
   render() {
     const {inventory} = this.props;
-    let {addedComponents} = this.state;
+    const {addedComponents} = this.state;
     // test for correct ussage, the parent must send this datastructure
     if (!inventory) {
       alert("inventory is undefined in ComposeSalad");

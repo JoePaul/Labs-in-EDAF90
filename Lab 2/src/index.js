@@ -13,8 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: [],
-      idGenerator: Salad.getUniqueID()
+      order: []
     }
     this.addOrder = this.addOrder.bind(this);
     this.onRemove = this.onRemove.bind(this);
@@ -50,7 +49,7 @@ class App extends Component {
           <p>Beställ online och få den levererad till dig var i världen du än befinner dig - online!</p>
         </div>
 
-        <ComposeSaladModal inventory={inventory} idGenerator={this.state.idGenerator} addOrder={this.addOrder}/>
+        <ComposeSaladModal inventory={inventory} addOrder={this.addOrder}/>
         <ViewOrder order={this.state.order} onRemove={this.onRemove}/>
       </div>
     );

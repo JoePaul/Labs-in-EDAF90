@@ -26,8 +26,9 @@ class ComposeSalad extends React.Component {
   
   handleSubmit(event) {
     event.preventDefault();
-    let {addedComponents, addedFoundation, addedDressing} = this.state;
-    let salad = new Salad(this.props.idGenerator());
+    const {addedComponents, addedFoundation, addedDressing} = this.state;
+
+    let salad = new Salad();
     addedComponents.map(v => salad.addItem(v));
     salad.addItem(addedDressing);
     salad.addItem(addedFoundation)
@@ -57,7 +58,6 @@ class ComposeSalad extends React.Component {
     } else {
       this.setState({addedComponents: addedComponents.filter(v => v !== value)});
     }
-    
   }
   
 

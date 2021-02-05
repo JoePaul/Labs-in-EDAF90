@@ -6,13 +6,19 @@ const foundations = Object.keys(inventory).filter(item => inventory[item]["found
 const proteins = Object.keys(inventory).filter(item => inventory[item]["protein"]);
 const extras = Object.keys(inventory).filter(item => inventory[item]["extra"]);
 const dressing = Object.keys(inventory).filter(item => inventory[item]["dressing"]);
+let getUniqueID = () => {
+    let id = 1;
+    return () => id++;
+}
 
+let id = getUniqueID();
 
+//Ändra så att sallad inte behöver ha koll på inv
 class Salad {
 
 
-    constructor(id) {
-        this.id = id;
+    constructor() {
+        this.id = id();
         this.foundation = {};
         this.protein = [];
         this.extra = [];
@@ -20,10 +26,7 @@ class Salad {
 
     };
 
-    static getUniqueID() {
-        let id = 1;
-        return _ => id++;
-    }
+    
 
     addItem = (item, size = 1) => {
         let itemObject = {...inventory[item], size};

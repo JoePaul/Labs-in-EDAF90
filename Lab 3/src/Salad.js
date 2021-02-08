@@ -12,8 +12,6 @@ let getUniqueID = () => {
 }
 
 let id = getUniqueID();
-
-//Ändra så att sallad inte behöver ha koll på inv
 class Salad {
 
 

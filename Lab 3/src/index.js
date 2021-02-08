@@ -44,7 +44,9 @@ class App extends Component {
     
     return (
       <Router>
+        
       <div>
+      
         <ul className="nav nav-tabs">
             <li className="nav-item ">
               <Link className="nav-link" to="compose-salad">
@@ -68,6 +70,7 @@ class App extends Component {
           <p>Beställ online och få den levererad till dig var i världen du än befinner dig - online!</p>
         </div>
         <Switch>
+          <Route exact path="/" render={composeSalladComp}/>
         <Route path="/compose-salad" render={composeSalladComp}/>
         <Route path="/view-order" render={viewOrderComp}/>
         <Route>

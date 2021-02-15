@@ -57,7 +57,8 @@ var HttpStatus = require('http-status-codes');
   addInventoryListener(server, 'protein');
   addInventoryListener(server, 'extra');
   addInventoryListener(server, 'dressing');
-  server.post('/orders/', handleOrder);
+  server.post('/orders/', (req, res, next) => handleOrder(req,res,next));
+  
   server.get("/", (req, res, next) =>
     res.json({try: req.hostname + ":" + port + req.originalUrl + "foundations"})
   );

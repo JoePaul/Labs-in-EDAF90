@@ -14,9 +14,4 @@ class SaladOption extends React.Component {
 }
 
 
-SaladOption.propTypes = {
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
-}
-
 export default SaladOption;

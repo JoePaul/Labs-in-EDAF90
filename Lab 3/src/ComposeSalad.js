@@ -31,17 +31,17 @@ class ComposeSalad extends React.Component {
   
   handleSubmit(event) {
     event.preventDefault();
-    //event.target.classList.add("was-validated");
     Array.from(document.getElementsByClassName("form-group"))
            .forEach(element => element.classList.add("was-validated"));
     if(event.target.checkValidity()){
       
       const {addedComponents, addedFoundation, addedDressing} = this.state;
+      const {inventory} = this.props;
 
       let salad = new Salad();
-      addedComponents.map(v => salad.addItem(v));
-      salad.addItem(addedDressing);
-      salad.addItem(addedFoundation)
+      addedComponents.map(v => salad.addItem(v, inventory[v]));
+      salad.addItem(addedDressing, inventory[addedDressing]);
+      salad.addItem(addedFoundation, inventory[addedFoundation])
       this.props.addOrder(salad);
 
       
@@ -59,21 +59,20 @@ class ComposeSalad extends React.Component {
   }
 
   handleCancel(event) {
+    Array.from(document.getElementsByClassName("was-validated"))
+           .forEach(element => element.classList.remove("was-validated"));
     this.setState({addedComponents: [], addedFoundation: "", addedDressing:""});
   }
 
   handleFoundation(event) {
-    
     let {value, parentElement} = event.target;
     parentElement.classList.add("was-validated");
-    
     this.setState({addedFoundation: value});
   }
 
   handleDressing(event) {
     let {value, parentElement} = event.target;
     parentElement.classList.add("was-validated");
-    
     this.setState({addedDressing: value});
   }
 

@@ -46,7 +46,6 @@ class App extends Component {
       <Router>
         
       <div>
-      
         <ul className="nav nav-tabs">
             <li className="nav-item ">
               <Link className="nav-link" to="compose-salad">
@@ -71,11 +70,11 @@ class App extends Component {
         </div>
         <Switch>
           <Route exact path="/" render={composeSalladComp}/>
-        <Route path="/compose-salad" render={composeSalladComp}/>
-        <Route path="/view-order" render={viewOrderComp}/>
-        <Route>
-          {<h4 className="text-center">404 Page not found</h4>}
-        </Route>
+          <Route path="/compose-salad" render={composeSalladComp}/>
+          <Route path="/view-order" render={viewOrderComp}/>
+          <Route>
+            {<h4 className="text-center">404 Page not found</h4>}
+          </Route>
         </Switch>
         
       </div>

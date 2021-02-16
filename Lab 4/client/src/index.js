@@ -40,7 +40,20 @@ class App extends Component {
     }
     this.addOrder = this.addOrder.bind(this);
     this.onRemove = this.onRemove.bind(this);
+    this.updateSalad = this.updateSalad.bind(this);
+    this.submitOrder = this.submitOrder.bind(this);
     
+  }
+
+
+  updateSalad(salad) {
+    let index = this.state.order.findIndex(s => s.id === salad.id);
+    let order = [...this.state.order];
+    order[index] = salad;
+    this.setState({order }, () => {
+       window.localStorage.setItem("order", JSON.stringify(order));
+       $("#changeSaladModal").modal("hide");
+    });
   }
 
 
@@ -57,14 +70,15 @@ class App extends Component {
             .then(responses => Promise.all(responses.flat()))
             .then(responses => reduceSaladObjectFromServerToKeyValueObject(responses))
             .then(inventory => {
-              this.setState({inventory, order: JSON.parse(window.localStorage.getItem("order"))}, () => console.log(new Date().getTime() - start));
+              let orderFromStorage = JSON.parse((window.localStorage.getItem("order") || "[]"));
+              this.setState({inventory, order: orderFromStorage}, () => console.log(this.state));
             }); 
   }
 
  
 
   onRemove(id) {
-    let order = this.state.order.filter(a => a.id !== id);
+    let order = this.state.order.filter(sallad => sallad.id !== id);
     this.setState({order}, () => {
       window.localStorage.setItem("order", JSON.stringify(order));
       $("#removeSaladModal").modal("hide");
@@ -75,24 +89,31 @@ class App extends Component {
   addOrder(salad) {
     const {order} = this.state;
     order.push(salad);
-    this.setState({order}, () => fetch("http://localhost:8080/orders/", {
-      method:"POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(this.state.order)
-    }).then(response => {
-      console.log(response)
-      window.localStorage.setItem("order", JSON.stringify(order));
-    }));
+    this.setState({order}, () => window.localStorage.setItem("order", JSON.stringify(order)));
   } 
 
-  
+  submitOrder() {
+    const {order} = this.state;
+    console.log("hej")
+    fetch("http://localhost:8080/orders/", {
+        method:"POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(order)
+      }).then(response => {
+      console.log(response.status)
+      window.localStorage.setItem("order", []);
+      window.scrollTo({top:0, behavior: 'smooth'});
+      })
+      .then(() => this.setState({order:[]}));
+  }
 
 
 
   render() {
+    const {inventory, order} = this.state;
 
-    const composeSalladComp = (params) => <ComposeSalad {...params} inventory={this.state.inventory} addOrder={this.addOrder}/>;
-    const viewOrderComp = (params) => <ViewOrder {...params} order={this.state.order} onRemove={this.onRemove}/>;
+    const composeSalladComp = (params) => <ComposeSalad {...params} inventory={inventory} addOrder={this.addOrder} />;
+    const viewOrderComp = (params) => <ViewOrder {...params} order={order} onRemove={this.onRemove} inventory={inventory} updateSalad={this.updateSalad} submitOrder={this.submitOrder}/>;
     return (
       <Router>
         

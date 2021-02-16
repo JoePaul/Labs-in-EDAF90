@@ -23,7 +23,7 @@ class Salad {
         let itemObject = {...item, size};
         if (item){
             const {foundation, protein, extra, dressing} = this;
-            if (itemObject.foundation && foundation) {
+            if (itemObject.foundation) {
                 foundation[name] = itemObject;
             } else if (itemObject.protein) {
                 protein.push({[name]:itemObject});
